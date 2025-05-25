@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'ngrok_monitor',  # Añade esta línea
 ]
 
 MIDDLEWARE = [
