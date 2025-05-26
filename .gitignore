@@ -1,3 +1,5 @@
 db.sqlite3
 */__pycache__/
 ngrok_monitor/migrations/__pycache__/
+.env
+ngrok_monitor/cache/bot_info_cache.json
