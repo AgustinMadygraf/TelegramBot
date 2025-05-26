@@ -1,3 +1,7 @@
+"""
+path: ngrok_monitor/urls.py
+"""
+
 from django.urls import path
 from . import views
 
