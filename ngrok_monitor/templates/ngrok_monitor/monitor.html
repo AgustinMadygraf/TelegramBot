@@ -1,59 +1,6 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Monitor de ngrok</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        .status-card {
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            padding: 20px;
-            margin: 20px 0;
-            text-align: center;
-        }
-        .status {
-            font-size: 24px;
-            margin: 20px 0;
-        }
-        .running {
-            color: green;
-        }
-        .not-running {
-            color: red;
-        }
-        button {
-            background-color: #4CAF50;
-            border: none;
-            color: white;
-            padding: 15px 32px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            margin: 4px 2px;
-            cursor: pointer;
-            border-radius: 4px;
-        }
-        .ngrok-url {
-            word-break: break-all;
-            margin-top: 20px;
-        }
-        .message {
-            background-color: #f0f0f0;
-            padding: 10px;
-            border-radius: 5px;
-            margin-top: 20px;
-        }
-    </style>
-</head>
-<body>
-    <h1>Monitor de ngrok</h1>
-    
+{% extends "ngrok_monitor/base.html" %}
+
+{% block content %}
     <div class="status-card">
         <h2>Estado actual:</h2>
         <div class="status {% if ngrok_running %}running{% else %}not-running{% endif %}" id="status-text">
@@ -154,13 +101,9 @@
         </div>
     </div>
     {% endif %}
+{% endblock %}
 
-    {% if message %}
-    <div class="message">
-        {{ message }}
-    </div>
-    {% endif %}
-
+{% block scripts %}
     <script>
         // Actualizar el estado cada 5 segundos
         setInterval(function() {
@@ -211,5 +154,4 @@
                 });
         }, 5000);
     </script>
-</body>
-</html>
+{% endblock %}
