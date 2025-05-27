@@ -1,5 +1,5 @@
 """
-Pat: ngrok_monitor/views.py
+Pat: telegram_assistant/views.py
 """
 
 from django.shortcuts import render, redirect
@@ -58,7 +58,7 @@ def monitor_view(request):
         'bot_info': bot_info,
     }
     
-    return render(request, 'ngrok_monitor/monitor.html', context)
+    return render(request, 'telegram_assistant/monitor.html', context)
 
 def check_status(request):
     """Endpoint para verificar el estado de ngrok y token via AJAX"""

@@ -1,11 +1,11 @@
 """
-path: ngrok_monitor/urls.py
+path: telegram_assistant/urls.py
 """
 
 from django.urls import path
 from . import views
 
-app_name = 'ngrok_monitor'
+app_name = 'telegram_assistant'
 
 urlpatterns = [
     path('', views.monitor_view, name='monitor'),

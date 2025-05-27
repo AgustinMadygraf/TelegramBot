@@ -1,5 +1,5 @@
 """
-path: ngrok_monitor/urls.py
+path: telegram_assistant/urls.py
 """
 
 import os

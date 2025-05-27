@@ -19,5 +19,5 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('ngrok_monitor.urls')),  # Ruta raíz para el monitor
+    path('', include('telegram_assistant.urls')),  # Ruta raíz para el monitor
 ]
