@@ -1,0 +1,15 @@
+/* Estilos personalizados para el monitor de ngrok y Telegram Bot */
+
+.status-running {
+    color: #198754;
+    font-weight: bold;
+}
+.status-not-running {
+    color: #dc3545;
+    font-weight: bold;
+}
+.ngrok-url {
+    word-break: break-all;
+}
+
+/* Espacio para más estilos globales */

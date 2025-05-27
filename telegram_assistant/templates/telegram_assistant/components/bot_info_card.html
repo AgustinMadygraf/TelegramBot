@@ -1,0 +1,34 @@
+{# Tarjeta de información detallada del bot de Telegram #}
+{% if token_valid and bot_info %}
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title text-center">Información Detallada del Bot</h5>
+        <div class="row">
+            <div class="col-md-6">
+                <p><strong>ID del Bot:</strong> {{ bot_info.id }}</p>
+                <p><strong>Nombre:</strong> {{ bot_info.first_name }}</p>
+                <p><strong>Nombre de Usuario:</strong> @{{ bot_info.username }}</p>
+                <p><strong>Es Bot:</strong> {{ bot_info.is_bot|yesno:"Sí,No" }}</p>
+            </div>
+            <div class="col-md-6">
+                {% if bot_info.can_join_groups is not None %}
+                <p><strong>Puede unirse a grupos:</strong> {{ bot_info.can_join_groups|yesno:"Sí,No" }}</p>
+                {% endif %}
+                {% if bot_info.can_read_all_group_messages is not None %}
+                <p><strong>Puede leer mensajes de grupo:</strong> {{ bot_info.can_read_all_group_messages|yesno:"Sí,No" }}</p>
+                {% endif %}
+                {% if bot_info.supports_inline_queries is not None %}
+                <p><strong>Soporta consultas inline:</strong> {{ bot_info.supports_inline_queries|yesno:"Sí,No" }}</p>
+                {% endif %}
+            </div>
+        </div>
+        <div class="text-center mt-3">
+            <form method="post" class="d-inline">
+                {% csrf_token %}
+            </form>
+            <div class="text-muted mt-2">
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
