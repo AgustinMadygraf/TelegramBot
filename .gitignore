@@ -4,3 +4,4 @@ telegram_assistant/migrations/__pycache__/
 .env
 telegram_assistant/cache/bot_info_cache.json
 docs/todo.md
+telegram_assistant/views/__pycache__/

@@ -1,0 +1,87 @@
+{% extends "telegram_assistant/base.html" %}
+{% load static %}
+
+{% block title %}Telegram Web Interface{% endblock %}
+
+{% block content %}
+<div class="telegram-interface">
+    <!-- Barra lateral con lista de chats -->
+    <div class="telegram-sidebar">
+        <div class="sidebar-header">
+            <h3>Chats</h3>
+            <div class="search-box">
+                <input type="text" placeholder="Buscar">
+            </div>
+        </div>
+        <div class="chats-list">
+            {% for chat in chats %}
+            <div class="chat-item {% if selected_chat.chat_id == chat.chat_id %}active{% endif %}"
+                 data-chat-id="{{ chat.chat_id }}">
+                <div class="chat-avatar">
+                    {% if chat.photo %}
+                    <img src="{{ chat.photo }}" alt="{{ chat }}">
+                    {% else %}
+                    <div class="default-avatar">{{ chat|first }}</div>
+                    {% endif %}
+                </div>
+                <div class="chat-info">
+                    <div class="chat-name">{{ chat }}</div>
+                    <div class="chat-last-message">
+                        {% with last_msg=chat.messages.first %}
+                        {% if last_msg %}
+                            <span class="message-preview">{{ last_msg.text|truncatechars:30 }}</span>
+                            <span class="message-time">{{ last_msg.date|time:"H:i" }}</span>
+                        {% endif %}
+                        {% endwith %}
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="no-chats">No hay chats disponibles</div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Área de mensajes -->
+    <div class="telegram-chat">
+        {% if selected_chat %}
+        <div class="chat-header">
+            <div class="chat-title">{{ selected_chat }}</div>
+            <div class="chat-actions">
+                <button class="btn-search"><i class="bi bi-search"></i></button>
+                <button class="btn-more"><i class="bi bi-three-dots-vertical"></i></button>
+            </div>
+        </div>
+        <div class="messages-container" id="messages-container">
+            {% for message in messages %}
+            <div class="message {% if message.is_bot_message %}message-outgoing{% else %}message-incoming{% endif %}">
+                <div class="message-content">
+                    <div class="message-sender">{{ message.from_user_name }}</div>
+                    <div class="message-text">{{ message.text }}</div>
+                    <div class="message-time">{{ message.date|time:"H:i" }}</div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="no-messages">No hay mensajes en este chat.</div>
+            {% endfor %}
+        </div>
+        <div class="message-input">
+            <textarea placeholder="Escribe un mensaje..." id="message-text"></textarea>
+            <button class="btn-send"><i class="bi bi-send"></i></button>
+        </div>
+        {% else %}
+        <div class="no-chat-selected">
+            <div class="empty-state">
+                <i class="bi bi-chat-dots"></i>
+                <p>Selecciona un chat para ver sus mensajes</p>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.js"></script>
+<script src="{% static 'js/telegram-interface.js' %}"></script>
+{% endblock %}

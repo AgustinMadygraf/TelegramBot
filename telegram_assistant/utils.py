@@ -6,10 +6,10 @@ import os
 import subprocess
 import time
 from pathlib import Path
-import requests
-from dotenv import load_dotenv
 import json
 import datetime
+import requests
+from dotenv import load_dotenv
 
 # Ruta al archivo .env en la raíz del proyecto
 ENV_PATH = Path(__file__).resolve().parent.parent / '.env'
@@ -115,7 +115,7 @@ def get_cached_bot_info():
     """Obtiene la información del bot desde la caché si está disponible y es válida"""
     if not BOT_INFO_CACHE_FILE.exists():
         return None
-    
+
     try:
         cache_data = json.loads(BOT_INFO_CACHE_FILE.read_text('utf-8'))
         # Verificar si la caché ha expirado
@@ -124,7 +124,7 @@ def get_cached_bot_info():
         if now - cached_time > datetime.timedelta(hours=CACHE_EXPIRY_HOURS):
             return None  # Caché expirada
         return cache_data.get('data')
-    except:
+    except (json.JSONDecodeError, ValueError, OSError):
         return None
 
 def save_bot_info_to_cache(bot_info):
@@ -140,13 +140,13 @@ def get_bot_detailed_info(token, force_refresh=False):
     """Obtiene información detallada del bot usando getMe, con caché"""
     if not token:
         return None
-    
+
     # Si no se fuerza la actualización, intentar obtener de la caché
     if not force_refresh:
         cached_info = get_cached_bot_info()
         if cached_info:
             return cached_info
-    
+
     # Si llegamos aquí, necesitamos obtener nueva información de la API
     try:
         response = requests.get(f"https://api.telegram.org/bot{token}/getMe", timeout=5)
